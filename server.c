@@ -143,9 +143,9 @@ int main(int argc, char const *argv[])
         error("Error reading from the client socket.");
 
     //printf("%s\n", buffer );
-    printf("Y_a = %lld\n", buffer[0]);
-    printf("q = %lld\n", buffer[1]);
-    printf("alpha = %lld\n", buffer[2]);
+    //printf("Y_a = %lld\n", buffer[0]);
+    //printf("q = %lld\n", buffer[1]);
+    //printf("alpha = %lld\n", buffer[2]);
 
 
     //Send Y_b to B
@@ -168,7 +168,7 @@ int main(int argc, char const *argv[])
     arr[1] = q;
     arr[2] = alpha;
 
-    printf("%lld %lld %lld %lld\n",q,alpha,X_b,Y_b );
+    //printf("%lld %lld %lld %lld\n",q,alpha,X_b,Y_b );
 
     //Send Y_b to client A
     int n = write(new_socket , arr , sizeof(arr));
@@ -191,10 +191,8 @@ int main(int argc, char const *argv[])
     if (x<0)
         error("Error reading from the client socket.");
 
-    //r = read(new_socket , cipher, 1024-1);
-    //r = read(new_socket, &len_cipher, sizeof(len_cipher));
-    //printf("lrn arr %lld\n", len_arr[0]);
-    size_t length_a = len_arr[0];
+    int length_a = len_arr[0];
+    //printf("length_a = %d\n", length_a);
 
     char cipher[length_a];
     r = read(new_socket , cipher,length_a);
@@ -209,15 +207,17 @@ int main(int argc, char const *argv[])
     len_arr[0]=0;
 
     //Decrypt the cipher
-    printf("strlen of ciphertext %d\n",strlen(cipher) );
+    //printf("strlen of ciphertext %d\n",strlen(cipher) );
 
     
-    char plain_cipher[strlen(cipher)];
+    char plain_cipher[length_a];
     int j;
     for (j=0 ; j < strlen(cipher); j++)
+     {
         plain_cipher[j]= encoding[decrypt_cipher(findIndex(encoding, 67, cipher[j]), k , 67)];
+        printf("%c", plain_cipher[j]);
+    }
     
- 
     //printf("%s", plain_cipher);
 
 
@@ -227,7 +227,7 @@ int main(int argc, char const *argv[])
     
     //Encryption of text
     
-    char * mssg = "This is the 1st lab assignment in SNS 2018!";
+    char * mssg = "Meet me after the new year party at 10 P.M. night at IIIT felicity ground.";
 
     int len_mssg = strlen(mssg);
     int int_mssg[len_mssg];
@@ -239,7 +239,7 @@ int main(int argc, char const *argv[])
     for (i=0; i < len_mssg; i++)
     {
         int_mssg[i] = findIndex(encoding, 67, mssg[i]);
-        printf("%c", mssg[i] );
+        //printf("%c", mssg[i] );
     }
 
     //Encrypt
@@ -260,10 +260,13 @@ int main(int argc, char const *argv[])
     if (l< 0)
         error("Error writing to socket.");
     
-    printf("%s\n", encrypt_mssg );
-    n = write(new_socket , encrypt_mssg , (size_t) len_arr[0]);
+    //printf("%s\n", encrypt_mssg );
+    n = write(new_socket , encrypt_mssg , len_arr[0]);
     if (n< 0)
         error("Error writing to socket.");
+    
+    //shutdown(new_socket,2);
+    //shutdown(server_fd,2);
     
     return 0;
 }
