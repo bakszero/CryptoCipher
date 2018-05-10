@@ -1,6 +1,6 @@
 ## CryptoCipher
 
-### Part 1: Establishment of a shared session key K A,B between the client A and the server B. For this part, we use the Diffie-Hellman key exchange protocol, which is described below:
+## Part 1: Establishment of a shared session key K A,B between the client A and the server B. For this part, we use the Diffie-Hellman key exchange protocol, which is described below:
 
 
 #### Global Public Elements
@@ -41,9 +41,11 @@ B → A : {Y_b }
 • Compute the shared key with A as K B,A = (Y A ) X B mod q = K A,B
 ```
 
-### Part 2: Implementation of Generalized Caesar Cipher using the Established Key in Part 1.
 
+## Part 2: Implementation of Generalized Caesar Cipher using the Established Key in Part 1.
 
-#### Alice (client A) encrypts the plaintext, say, This is 2018! using a key k = K (mod 66), and sends the ciphertext to Bob (server B). Bob B will decrypt the ciphertext.
+```
+Alice (client A) encrypts the plaintext, say, This is 2018! using a key k = K (mod 66), and sends the ciphertext to Bob (server B). Bob B will decrypt the ciphertext.
 
-#### Bob (server B) encrypts the plaintext, say, Meet me after the party at 10 P.M. night at IIIT felicity ground. using a key k = K (mod 66), and sends the ciphertext to Alice (client A). A will decrypt the ciphertext.
+Bob (server B) encrypts the plaintext, say, Meet me after the party at 10 P.M. night at IIIT felicity ground. using a key k = K (mod 66), and sends the ciphertext to Alice (client A). A will decrypt the ciphertext.
+```
